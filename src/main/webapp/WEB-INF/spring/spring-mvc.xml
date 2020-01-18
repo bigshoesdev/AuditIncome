@@ -1,0 +1,69 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/mvc
+                http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+  
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+    <mvc:annotation-driven conversion-service="conversionService"/>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="en" />
+    </bean>
+
+    <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+        <property name="paramName" value="language" />
+    </bean>
+    
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/pages/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- Tiles configuration -->
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/views/tiles/tiles-definitions.xml</value>
+            </list>
+        </property>
+    </bean>
+    <!-- <bean id="inCountInterceptor" class="com.system.software.solutions.main.interceptor.InCountInterceptor"></bean> -->
+    <mvc:interceptors>
+        <ref bean="localeChangeInterceptor" />
+    </mvc:interceptors>
+ 
+    <bean id="roleToUserProfileConverter"  class="com.system.software.solutions.sts.converter.RoleToUserProfileConverter"></bean>
+ 
+    <!-- conversion service -->
+    <bean id="conversionService"
+          class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <list>
+                <ref bean="roleToUserProfileConverter"/>
+            </list>
+        </property>
+    </bean>
+    <!-- <mvc:cors> -->
+
+    <!-- 	<mvc:mapping path="/api/**" -->
+    <!-- 		allowed-origins="http://domain1.com, http://domain2.com" -->
+    <!-- 		allowed-methods="GET, PUT" -->
+    <!-- 		allowed-headers="header1, header2, header3" -->
+    <!-- 		exposed-headers="header1, header2" allow-credentials="false" -->
+    <!-- 		max-age="123" /> -->
+
+    <!-- 	<mvc:mapping path="/resources/**" -->
+    <!-- 		allowed-origins="http://domain1.com" /> -->
+
+    <!-- </mvc:cors> -->
+
+
+</beans>

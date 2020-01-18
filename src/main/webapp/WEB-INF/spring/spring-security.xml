@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.1.xsd">
+
+    <security:global-method-security  secured-annotations="enabled" />
+ 
+    <security:http auto-config="false" use-expressions="true" >           
+        <security:access-denied-handler error-page="/Access_Denied" />
+        <security:intercept-url pattern="/home/**" access="isFullyAuthenticated()" />
+        <security:intercept-url pattern="/lcd/**" access="isFullyAuthenticated()" />
+        <security:intercept-url pattern="/rma/**" access="isFullyAuthenticated()" />
+        <security:intercept-url pattern="/dashboard/**" access="isFullyAuthenticated()" />
+        <security:intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+        <security:intercept-url pattern="/grid/**" access="isFullyAuthenticated()" />
+  
+        <security:form-login login-page="/login" username-parameter="ssoId"  password-parameter="password" authentication-failure-url="/login?error=403" default-target-url="/dashboard/" />
+        <security:remember-me   services-ref="persistentTokenBasedRememberMeServices" />
+        <security:logout invalidate-session="true" logout-success-url="/login" logout-url="/logout" />
+        <security:csrf/>
+    </security:http>
+    
+    <security:authentication-manager>  
+        <security:authentication-provider user-service-ref="customUserDetailsService">  
+            <security:password-encoder ref="passwordEncoder"></security:password-encoder>  
+        </security:authentication-provider>  
+    </security:authentication-manager> 
+    
+    <bean id="persistentTokenBasedRememberMeServices"
+          class="org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices">
+        <constructor-arg value="myAppKey"/>
+        <constructor-arg ref="customUserDetailsService"/>
+        <constructor-arg ref="tokenRepository"/>
+        <property name="cookieName" value="remember-me"/>
+        <property name="tokenLength" value="32"/>
+        <property name="parameter" value="remember-me"/>
+    </bean>
+   
+    <bean id="customUserDetailsService" class="com.system.software.solutions.sts.security.CustomUserDetailsService">
+    </bean>
+   
+    <bean id="tokenRepository"
+          class="org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl">
+    </bean>
+    <bean id="passwordEncoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+   
+    <bean id="authenticationTrustResolver"
+          class="org.springframework.security.authentication.AuthenticationTrustResolverImpl" />
+   
+</beans>

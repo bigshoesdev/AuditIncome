@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <!-- Base Definition -->
+    <definition name="base-definition"
+                template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/tiles/template/header.jsp" />
+        <put-attribute name="menu"
+                       value="/WEB-INF/views/tiles/template/menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/views/tiles/template/footer.jsp" />
+    </definition>
+
+
+    <!-- login -->
+    <definition name="login"
+                template="/WEB-INF/views/tiles/layouts/loginLayout.jsp">
+        <put-attribute name="title" value="Welcome to Angular" />
+        <put-attribute name="body" value="/WEB-INF/views/pages/login.jsp" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/views/tiles/template/footer.jsp" />
+    </definition>
+
+
+    <!-- Home Page -->
+    <definition name="home" extends="base-definition">
+        <put-attribute name="title" value="Welcome to inCount" />
+        <put-attribute name="body" value="/WEB-INF/views/pages/index.jsp" />
+    </definition>
+
+
+    <!-- angular -->
+    <definition name="angular" extends="base-definition">
+        <put-attribute name="title" value="Welcome to Angular" />
+        <put-attribute name="body" value="/WEB-INF/views/pages/users.jsp" />
+    </definition>
+
+    <!-- login -->
+    <definition name="grid"
+                template="/WEB-INF/views/tiles/layouts/gridLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/tiles/template/header.jsp" />
+        <put-attribute name="menu"
+                       value="/WEB-INF/views/tiles/template/menu.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/pages/grid.jsp" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/views/tiles/template/footer.jsp" />
+
+
+    </definition>
+    
+    
+    <!-- kendogrid -->
+    <definition name="kendogrid"
+                template="/WEB-INF/views/tiles/layouts/kendoLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/tiles/template/header.jsp" />
+        <put-attribute name="menu"
+                       value="/WEB-INF/views/tiles/template/menu.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/pages/grid.jsp" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/views/tiles/template/footer.jsp" />
+    </definition>
+
+
+    <!-- dashboard -->
+    <definition name="dashboard"
+                template="/WEB-INF/views/tiles/layouts/dashboardLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/tiles/template/header.jsp" />
+        <put-attribute name="menu"
+                       value="/WEB-INF/views/tiles/template/menu.jsp" />
+        <put-attribute name="body" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/views/tiles/template/footer.jsp" />
+    </definition>
+    
+    <!-- LCD -->
+    <definition name="lcdgrid"
+                template="/WEB-INF/views/tiles/layouts/gridLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header"
+                       value="/WEB-INF/views/tiles/template/header.jsp" />
+        <put-attribute name="menu"
+                       value="/WEB-INF/views/tiles/template/menu.jsp" />
+        <put-attribute name="body" value="/WEB-INF/views/pages/grid.jsp" />
+        <put-attribute name="footer"
+                       value="/WEB-INF/views/tiles/template/footer.jsp" />
+
+
+    </definition>
+</tiles-definitions>

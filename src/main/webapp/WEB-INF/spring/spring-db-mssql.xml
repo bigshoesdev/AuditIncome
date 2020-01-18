@@ -1,0 +1,63 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context
+                http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/mvc
+                http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                http://www.springframework.org/schema/jee 
+                http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+    <bean id="dataSourceMSSql"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+        <property name="url"
+                  value="jdbc:jtds:sqlserver://localhost:1433;databaseName=Incoming_Audit" />
+        <property name="username" value="sa" />
+        <property name="password" value="partner" />
+    </bean>
+<!--    <bean id="dataSourceMSSql"
+              class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="net.sourceforge.jtds.jdbc.Driver" />
+        <property name="url"
+                  value="jdbc:jtds:sqlserver://localhost:1433;databaseName=Incoming_Audit" />
+        <property name="username" value="Admin" />
+        <property name="password" value="P@ssword123" />
+    </bean>
+    -->
+    <bean id="sessionFactoryMSSql"
+          class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSourceMSSql" />
+
+        <property name="annotatedClasses">
+            <list>
+                <value>com.system.software.solutions.sts.model.Test</value>
+                <value>com.system.software.solutions.sts.model.Main</value>
+                <value>com.system.software.solutions.sts.model.AuditLiveView</value>
+                <value>com.system.software.solutions.sts.model.LCD</value>
+                <value>com.system.software.solutions.sts.model.RMA</value>
+            </list>
+        </property>
+
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- Transaction -->
+    <bean id="transactionManagerMSsql"
+          class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactoryMSSql" />
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManagerMSsql" />
+
+</beans>

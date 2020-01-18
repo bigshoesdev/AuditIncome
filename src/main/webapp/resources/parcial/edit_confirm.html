@@ -1,0 +1,54 @@
+ <!-- Dialog show event handler -->
+<script type="text/javascript">
+var url;
+$(document).ready(function() {
+	$('#confirmEdit').on('show.bs.modal', function (e) {
+
+      $message = $(e.relatedTarget).attr('data-message');
+      $(this).find('.modal-body p').text($message);
+      $title = $(e.relatedTarget).attr('data-title');
+      $(this).find('.modal-title').text($title);
+      url=$(e.relatedTarget).data('href');
+     console.log('ss'+$message);
+  });
+
+ 
+  $('#confirmEdit').find('.modal-footer #confirm').on('click', function(){
+	//  location.href=url;
+	 
+	  console.log('confirm');
+  });
+  
+  $( "#dialog-confirm" ).dialog({
+      
+      autoOpen: false 
+    });
+ 
+  
+});
+</script>
+
+ 
+ <div id="dialog-confirm" title="Edit Parmanently">
+  <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>
+  <span id="editMsg">Are you sure you want to edit this field? </span></p>
+</div>
+ 
+    <!-- Modal Dialog -->
+<div class="modal fade" id="confirmEdit" role="dialog" aria-labelledby="confirmEditLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Edit Parmanently</h4>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to edit this field?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="confirm">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
